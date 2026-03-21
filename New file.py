@@ -6,8 +6,12 @@ def ask_folder():
 def list_files(folder):
     while True:
         try:
-            files = os.listdir(folder)
-            return files
+            all_files = []
+            for root, subfolders, files in os.walk(folder):
+                for f in files:
+                    full_path = os.path.join(root, f)  # full path for clarity
+                    all_files.append(full_path)
+            return all_files
         except FileNotFoundError:
             print("Invalid folder. Try again.")
             folder = ask_folder()
