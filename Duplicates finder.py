@@ -1,4 +1,5 @@
 import os
+import hashlib
 
 def ask_folder():
     return input("Enter folder name: ")
@@ -16,12 +17,20 @@ def list_files(folder):
             print("Invalid folder. Try again.")
             folder = ask_folder()
 
+def get_file_hash(file):
+    hasher = hashlib.md5()
+    with open (file, "rb") as g:
+        hasher.update(g.read())
+        hash_value = hasher.hexdigest()
+    return (hash_value)
+
 def main():
     folder = ask_folder()
     files = list_files(folder)
     
     print("Files found:")
     for f in files:
-        print(f)
+        hash_data = get_file_hash(f)
+        print(f"{f} : {hash_data}")
 
 main()
