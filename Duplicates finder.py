@@ -24,13 +24,23 @@ def get_file_hash(file):
         hash_value = hasher.hexdigest()
     return (hash_value)
 
+def find_duplicates(files):
+    hashes = {}
+    for f in files:
+        hash = get_file_hash(f)
+        hashes[hash] = [f]
+    return(hashes)
+
 def main():
     folder = ask_folder()
     files = list_files(folder)
-    
-    print("Files found:")
-    for f in files:
-        hash_data = get_file_hash(f)
-        print(f"{f} : {hash_data}")
+    duplicates = find_duplicates(files)
+
+    print(duplicates)
+
+    #print("Files found:")
+    #for f in files:
+        #hash_data = get_file_hash(f)
+        #print(f"{f} : {hash_data}")
 
 main()
